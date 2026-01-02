@@ -8,6 +8,8 @@ This guide is for people who have never used Nix. You will:
 5) Paste a minimal Telegram config
 6) Verify via launchd status + logs
 
+This guide creates a fresh, generic local flake and does not touch any personal `nixos-config`.
+
 ## 1) Install Determinate Nix
 
 Run this command:
