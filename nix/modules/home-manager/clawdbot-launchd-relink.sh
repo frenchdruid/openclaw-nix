@@ -42,3 +42,6 @@ link_agent "$HOME/Library/LaunchAgents/com.steipete.clawdbot.gateway.nix.plist" 
 
 link_agent "$HOME/Library/LaunchAgents/com.steipete.clawdbot.gateway.nix-test.plist" \
   "com.steipete.clawdbot.gateway.nix-test"
+
+link_agent "$HOME/Library/LaunchAgents/com.steipete.clawdbot.gateway.prod.plist" \
+  "com.steipete.clawdbot.gateway.prod"
