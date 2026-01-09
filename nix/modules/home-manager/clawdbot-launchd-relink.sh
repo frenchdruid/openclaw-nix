@@ -7,7 +7,7 @@ link_agent() {
 
   local candidate
   local hm_gen
-  hm_gen="$(/usr/bin/readlink "$HOME/.local/state/nix/profiles/home-manager" 2>/dev/null || true)"
+  hm_gen="$(/usr/bin/realpath "$HOME/.local/state/nix/profiles/home-manager" 2>/dev/null || true)"
   if [ -n "$hm_gen" ] && [ -e "$hm_gen/LaunchAgents/${label}.plist" ]; then
     candidate="$hm_gen/LaunchAgents/${label}.plist"
   else
