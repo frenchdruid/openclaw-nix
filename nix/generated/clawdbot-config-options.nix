@@ -2402,6 +2402,9 @@ in
         textChunkLimit = lib.mkOption {
           type = t.int;
         };
+        timeoutSeconds = lib.mkOption {
+          type = t.int;
+        };
         tokenFile = lib.mkOption {
           type = t.str;
         };
@@ -2563,6 +2566,9 @@ in
         type = t.enum [ "off" "partial" "block" ];
       };
       textChunkLimit = lib.mkOption {
+        type = t.int;
+      };
+      timeoutSeconds = lib.mkOption {
         type = t.int;
       };
       tokenFile = lib.mkOption {
