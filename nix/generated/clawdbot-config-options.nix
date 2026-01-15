@@ -531,6 +531,9 @@ in
       thinkingDefault = lib.mkOption {
         type = t.oneOf [ t.enum [ "off" ] t.enum [ "minimal" ] t.enum [ "low" ] t.enum [ "medium" ] t.enum [ "high" ] t.enum [ "xhigh" ] ];
       };
+      timeFormat = lib.mkOption {
+        type = t.oneOf [ t.enum [ "auto" ] t.enum [ "12" ] t.enum [ "24" ] ];
+      };
       timeoutSeconds = lib.mkOption {
         type = t.int;
       };
@@ -2738,6 +2741,9 @@ in
         configWrites = lib.mkOption {
           type = t.bool;
         };
+        debounceMs = lib.mkOption {
+          type = t.int;
+        };
         dmHistoryLimit = lib.mkOption {
           type = t.int;
         };
@@ -2840,6 +2846,9 @@ in
       };
       configWrites = lib.mkOption {
         type = t.bool;
+      };
+      debounceMs = lib.mkOption {
+        type = t.int;
       };
       dmHistoryLimit = lib.mkOption {
         type = t.int;
@@ -3244,6 +3253,41 @@ in
       };
       mentionPatterns = lib.mkOption {
         type = t.listOf (t.str);
+      };
+    }; };
+    };
+    inbound = lib.mkOption {
+      type = t.submodule { options = {
+      byChannel = lib.mkOption {
+        type = t.submodule { options = {
+        discord = lib.mkOption {
+          type = t.int;
+        };
+        imessage = lib.mkOption {
+          type = t.int;
+        };
+        msteams = lib.mkOption {
+          type = t.int;
+        };
+        signal = lib.mkOption {
+          type = t.int;
+        };
+        slack = lib.mkOption {
+          type = t.int;
+        };
+        telegram = lib.mkOption {
+          type = t.int;
+        };
+        webchat = lib.mkOption {
+          type = t.int;
+        };
+        whatsapp = lib.mkOption {
+          type = t.int;
+        };
+      }; };
+      };
+      debounceMs = lib.mkOption {
+        type = t.int;
       };
     }; };
     };
