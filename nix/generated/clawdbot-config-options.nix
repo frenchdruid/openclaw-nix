@@ -281,7 +281,7 @@ in
         }; };
         };
         fallback = lib.mkOption {
-          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "none" ] ];
+          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "gemini" ] t.enum [ "local" ] t.enum [ "none" ] ];
         };
         local = lib.mkOption {
           type = t.submodule { options = {
@@ -297,7 +297,7 @@ in
           type = t.str;
         };
         provider = lib.mkOption {
-          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "gemini" ] t.enum [ "local" ] ];
+          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "local" ] t.enum [ "gemini" ] ];
         };
         query = lib.mkOption {
           type = t.submodule { options = {
@@ -724,7 +724,7 @@ in
         }; };
         };
         fallback = lib.mkOption {
-          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "none" ] ];
+          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "gemini" ] t.enum [ "local" ] t.enum [ "none" ] ];
         };
         local = lib.mkOption {
           type = t.submodule { options = {
@@ -740,7 +740,7 @@ in
           type = t.str;
         };
         provider = lib.mkOption {
-          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "gemini" ] t.enum [ "local" ] ];
+          type = t.oneOf [ t.enum [ "openai" ] t.enum [ "local" ] t.enum [ "gemini" ] ];
         };
         query = lib.mkOption {
           type = t.submodule { options = {
@@ -1051,44 +1051,6 @@ in
           };
           enabled = lib.mkOption {
             type = t.bool;
-          };
-        }; };
-        };
-        exec = lib.mkOption {
-          type = t.submodule { options = {
-          applyPatch = lib.mkOption {
-            type = t.submodule { options = {
-            allowModels = lib.mkOption {
-              type = t.listOf (t.str);
-            };
-            enabled = lib.mkOption {
-              type = t.bool;
-            };
-          }; };
-          };
-          ask = lib.mkOption {
-            type = t.enum [ "off" "on-miss" "always" ];
-          };
-          backgroundMs = lib.mkOption {
-            type = t.int;
-          };
-          cleanupMs = lib.mkOption {
-            type = t.int;
-          };
-          host = lib.mkOption {
-            type = t.enum [ "sandbox" "gateway" "node" ];
-          };
-          node = lib.mkOption {
-            type = t.str;
-          };
-          notifyOnExit = lib.mkOption {
-            type = t.bool;
-          };
-          security = lib.mkOption {
-            type = t.enum [ "deny" "allowlist" "full" ];
-          };
-          timeoutSec = lib.mkOption {
-            type = t.int;
           };
         }; };
         };
@@ -2364,6 +2326,9 @@ in
         mediaMaxMb = lib.mkOption {
           type = t.number;
         };
+        mode = lib.mkOption {
+          type = t.enum [ "socket" "http" ];
+        };
         name = lib.mkOption {
           type = t.str;
         };
@@ -2378,6 +2343,9 @@ in
         };
         requireMention = lib.mkOption {
           type = t.bool;
+        };
+        signingSecret = lib.mkOption {
+          type = t.str;
         };
         slashCommand = lib.mkOption {
           type = t.submodule { options = {
@@ -2413,6 +2381,9 @@ in
         };
         userTokenReadOnly = lib.mkOption {
           type = t.bool;
+        };
+        webhookPath = lib.mkOption {
+          type = t.str;
         };
       }; });
       };
@@ -2551,6 +2522,9 @@ in
       mediaMaxMb = lib.mkOption {
         type = t.number;
       };
+      mode = lib.mkOption {
+        type = t.enum [ "socket" "http" ];
+      };
       name = lib.mkOption {
         type = t.str;
       };
@@ -2565,6 +2539,9 @@ in
       };
       requireMention = lib.mkOption {
         type = t.bool;
+      };
+      signingSecret = lib.mkOption {
+        type = t.str;
       };
       slashCommand = lib.mkOption {
         type = t.submodule { options = {
@@ -2600,6 +2577,9 @@ in
       };
       userTokenReadOnly = lib.mkOption {
         type = t.bool;
+      };
+      webhookPath = lib.mkOption {
+        type = t.str;
       };
     }; };
     };
