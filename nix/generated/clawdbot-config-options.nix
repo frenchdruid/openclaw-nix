@@ -1927,6 +1927,16 @@ in
         historyLimit = lib.mkOption {
           type = t.int;
         };
+        intents = lib.mkOption {
+          type = t.submodule { options = {
+          guildMembers = lib.mkOption {
+            type = t.bool;
+          };
+          presence = lib.mkOption {
+            type = t.bool;
+          };
+        }; };
+        };
         markdown = lib.mkOption {
           type = t.submodule { options = {
           tables = lib.mkOption {
@@ -2193,6 +2203,16 @@ in
       };
       historyLimit = lib.mkOption {
         type = t.int;
+      };
+      intents = lib.mkOption {
+        type = t.submodule { options = {
+        guildMembers = lib.mkOption {
+          type = t.bool;
+        };
+        presence = lib.mkOption {
+          type = t.bool;
+        };
+      }; };
       };
       markdown = lib.mkOption {
         type = t.submodule { options = {
