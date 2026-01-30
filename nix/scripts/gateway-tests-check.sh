@@ -17,9 +17,7 @@ export MOLTBOT_LOG_PATH="${OPENCLAW_LOG_DIR}/openclaw-gateway.log"
 mkdir -p "$OPENCLAW_LOG_DIR"
 mkdir -p /tmp/openclaw || true
 chmod 700 /tmp/openclaw || true
-export VITEST_POOL="threads"
-export VITEST_MIN_THREADS="2"
-export VITEST_MAX_THREADS="2"
+export VITEST_POOL="forks"
 export VITEST_MIN_WORKERS="2"
 export VITEST_MAX_WORKERS="2"
 
