@@ -22,16 +22,16 @@ try:
     machine.wait_for_open_port(18999)
 except Exception:
     machine.succeed(
-        f"su - alice -c '{user_env} systemctl --user status openclaw-gateway.service --no-pager -n 200' || true"
+        f"su - alice -c '{user_env} systemctl --user status openclaw-gateway.service --no-pager -n 200 2>&1' || true"
     )
     machine.succeed(
-        f"su - alice -c '{user_env} systemctl --user show openclaw-gateway.service -p ActiveState -p SubState -p ExecMainCode -p ExecMainStatus -p MainPID --no-pager' || true"
+        f"su - alice -c '{user_env} systemctl --user show openclaw-gateway.service -p ActiveState -p SubState -p ExecMainCode -p ExecMainStatus -p MainPID --no-pager 2>&1' || true"
     )
     machine.succeed(
-        f"su - alice -c '{user_env} systemctl --user cat openclaw-gateway.service --no-pager' || true"
+        f"su - alice -c '{user_env} systemctl --user cat openclaw-gateway.service --no-pager 2>&1' || true"
     )
     machine.succeed(
-        "journalctl --user -u openclaw-gateway.service --no-pager -n 200 || true"
+        "journalctl --user -u openclaw-gateway.service --no-pager -n 200 2>&1 || true"
     )
     machine.succeed("ls -la /tmp/openclaw/openclaw-gateway.log || true")
     machine.succeed("tail -n 200 /tmp/openclaw/openclaw-gateway.log || true")
