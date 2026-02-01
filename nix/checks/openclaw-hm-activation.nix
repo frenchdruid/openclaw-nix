@@ -62,7 +62,7 @@ pkgs.testers.nixosTest {
               "OPENCLAW_SKIP_GMAIL_WATCHER=1"
               "OPENCLAW_DISABLE_BONJOUR=1"
               "NODE_DEBUG=module"
-              "NODE_OPTIONS=--report-on-fatalerror --report-on-signal"
+              "NODE_OPTIONS=--no-addons --report-on-fatalerror --report-on-signal"
               "NODE_REPORT_DIRECTORY=/tmp/openclaw"
               "NODE_REPORT_FILENAME=node-report.%p.json"
               "NODE_REPORT_SIGNAL=SIGABRT"
