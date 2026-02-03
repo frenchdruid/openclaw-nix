@@ -1793,7 +1793,7 @@ in
         type = t.str;
       };
       driver = lib.mkOption {
-        type = t.nullOr (t.oneOf [ (t.enum [ "openclaw" ]) (t.enum [ "extension" ]) ]);
+        type = t.nullOr (t.oneOf [ (t.enum [ "clawd" ]) (t.enum [ "extension" ]) ]);
         default = null;
       };
     }; }));
@@ -6347,10 +6347,6 @@ in
     };
     wideArea = lib.mkOption {
       type = t.nullOr (t.submodule { options = {
-      domain = lib.mkOption {
-        type = t.nullOr (t.str);
-        default = null;
-      };
       enabled = lib.mkOption {
         type = t.nullOr (t.bool);
         default = null;
@@ -6977,6 +6973,142 @@ in
     type = t.nullOr (t.submodule { options = {
     preserveFilenames = lib.mkOption {
       type = t.nullOr (t.bool);
+      default = null;
+    };
+  }; });
+    default = null;
+  };
+
+  memory = lib.mkOption {
+    type = t.nullOr (t.submodule { options = {
+    backend = lib.mkOption {
+      type = t.nullOr (t.oneOf [ (t.enum [ "builtin" ]) (t.enum [ "qmd" ]) ]);
+      default = null;
+    };
+    citations = lib.mkOption {
+      type = t.nullOr (t.oneOf [ (t.enum [ "auto" ]) (t.enum [ "on" ]) (t.enum [ "off" ]) ]);
+      default = null;
+    };
+    qmd = lib.mkOption {
+      type = t.nullOr (t.submodule { options = {
+      command = lib.mkOption {
+        type = t.nullOr (t.str);
+        default = null;
+      };
+      includeDefaultMemory = lib.mkOption {
+        type = t.nullOr (t.bool);
+        default = null;
+      };
+      limits = lib.mkOption {
+        type = t.nullOr (t.submodule { options = {
+        maxInjectedChars = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+        maxResults = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+        maxSnippetChars = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+        timeoutMs = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+      }; });
+        default = null;
+      };
+      paths = lib.mkOption {
+        type = t.nullOr (t.listOf (t.submodule { options = {
+        name = lib.mkOption {
+          type = t.nullOr (t.str);
+          default = null;
+        };
+        path = lib.mkOption {
+          type = t.str;
+        };
+        pattern = lib.mkOption {
+          type = t.nullOr (t.str);
+          default = null;
+        };
+      }; }));
+        default = null;
+      };
+      scope = lib.mkOption {
+        type = t.nullOr (t.submodule { options = {
+        default = lib.mkOption {
+          type = t.nullOr (t.oneOf [ (t.enum [ "allow" ]) (t.enum [ "deny" ]) ]);
+          default = null;
+        };
+        rules = lib.mkOption {
+          type = t.nullOr (t.listOf (t.submodule { options = {
+          action = lib.mkOption {
+            type = t.oneOf [ (t.enum [ "allow" ]) (t.enum [ "deny" ]) ];
+          };
+          match = lib.mkOption {
+            type = t.nullOr (t.submodule { options = {
+            channel = lib.mkOption {
+              type = t.nullOr (t.str);
+              default = null;
+            };
+            chatType = lib.mkOption {
+              type = t.nullOr (t.oneOf [ (t.enum [ "direct" ]) (t.enum [ "group" ]) (t.enum [ "channel" ]) ]);
+              default = null;
+            };
+            keyPrefix = lib.mkOption {
+              type = t.nullOr (t.str);
+              default = null;
+            };
+          }; });
+            default = null;
+          };
+        }; }));
+          default = null;
+        };
+      }; });
+        default = null;
+      };
+      sessions = lib.mkOption {
+        type = t.nullOr (t.submodule { options = {
+        enabled = lib.mkOption {
+          type = t.nullOr (t.bool);
+          default = null;
+        };
+        exportDir = lib.mkOption {
+          type = t.nullOr (t.str);
+          default = null;
+        };
+        retentionDays = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+      }; });
+        default = null;
+      };
+      update = lib.mkOption {
+        type = t.nullOr (t.submodule { options = {
+        debounceMs = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+        embedInterval = lib.mkOption {
+          type = t.nullOr (t.str);
+          default = null;
+        };
+        interval = lib.mkOption {
+          type = t.nullOr (t.str);
+          default = null;
+        };
+        onBoot = lib.mkOption {
+          type = t.nullOr (t.bool);
+          default = null;
+        };
+      }; });
+        default = null;
+      };
+    }; });
       default = null;
     };
   }; });
