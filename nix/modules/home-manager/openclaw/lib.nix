@@ -38,7 +38,13 @@ let
   };
 
   firstPartyPlugins = lib.filter (p: p != null) (lib.mapAttrsToList (name: source:
-    if (cfg.firstParty.${name}.enable or false) then { inherit source; } else null
+    let
+      pluginCfg = cfg.firstParty.${name};
+    in
+      if (pluginCfg.enable or false) then {
+        inherit source;
+        config = pluginCfg.config or {};
+      } else null
   ) firstPartySources);
 
   effectivePlugins = cfg.plugins ++ firstPartyPlugins;

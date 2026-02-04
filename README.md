@@ -260,6 +260,12 @@ programs.openclaw.firstParty = {
   sonoscli.enable = false;   # Sonos control
   imsg.enable = false;       # iMessage
 };
+
+# Optional config for first-party plugins
+programs.openclaw.firstParty.goplaces = {
+  enable = true;
+  config.env.GOOGLE_PLACES_API_KEY = "/run/agenix/google-places-api-key";
+};
 ```
 
 | Plugin | What it does |

@@ -118,62 +118,31 @@ in {
       description = "Plugins enabled for the default instance (merged with first-party toggles).";
     };
 
-    firstParty = {
-      summarize.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the summarize plugin (first-party).";
+    firstParty = let
+      mkPlugin = { name, defaultEnable ? false }: {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = defaultEnable;
+          description = "Enable the ${name} plugin (first-party).";
+        };
+        config = lib.mkOption {
+          type = lib.types.attrs;
+          default = {};
+          description = "Plugin configuration passed through to ${name} (env/settings).";
+        };
       };
-      peekaboo.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the peekaboo plugin (first-party).";
-      };
-      oracle.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the oracle plugin (first-party).";
-      };
-      poltergeist.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the poltergeist plugin (first-party).";
-      };
-      sag.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the sag plugin (first-party).";
-      };
-      camsnap.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the camsnap plugin (first-party).";
-      };
-      gogcli.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the gogcli plugin (first-party).";
-      };
-      goplaces.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Enable the goplaces plugin (first-party).";
-      };
-      bird.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the bird plugin (first-party).";
-      };
-      sonoscli.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the sonoscli plugin (first-party).";
-      };
-      imsg.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable the imsg plugin (first-party).";
-      };
+    in {
+      summarize = mkPlugin { name = "summarize"; };
+      peekaboo = mkPlugin { name = "peekaboo"; };
+      oracle = mkPlugin { name = "oracle"; };
+      poltergeist = mkPlugin { name = "poltergeist"; };
+      sag = mkPlugin { name = "sag"; };
+      camsnap = mkPlugin { name = "camsnap"; };
+      gogcli = mkPlugin { name = "gogcli"; };
+      goplaces = mkPlugin { name = "goplaces"; defaultEnable = true; };
+      bird = mkPlugin { name = "bird"; };
+      sonoscli = mkPlugin { name = "sonoscli"; };
+      imsg = mkPlugin { name = "imsg"; };
     };
 
     launchd.enable = lib.mkOption {
