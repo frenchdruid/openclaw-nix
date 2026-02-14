@@ -6,7 +6,7 @@ on:
   workflow_run:
     workflows: [ "Yolo Update Pins" ]
     types: [ completed ]
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 jobs:
   build-and-cache-linux:
@@ -16,7 +16,7 @@ jobs:
     env:
       TARGET_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       CACHIX_CACHE_NAME: ${{ vars.CACHIX_CACHE_NAME }}
-      CACHIX_PUSH: ${{ secrets.CACHIX_AUTH_TOKEN != '' }}
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,12 +55,12 @@ jobs:
             .#checks.x86_64-linux.package-contents
           )
 
-          if [ -n "${CACHIX_CACHE_NAME:-}" ] && [ "${CACHIX_PUSH:-false}" = "true" ]; then
+          if [ -n "${CACHIX_CACHE_NAME:-}" ] && [ -n "${CACHIX_AUTH_TOKEN:-}" ]; then
             echo "Building + pushing to Cachix cache: ${CACHIX_CACHE_NAME}"
             cachix watch-exec "${CACHIX_CACHE_NAME}" -- \
               nix build --accept-flake-config --print-build-logs "${targets[@]}"
           else
-            echo "Building without Cachix push (PR/fork or Cachix not configured)."
+            echo "Building without Cachix push (cache not configured)."
             nix build --accept-flake-config --print-build-logs "${targets[@]}"
           fi
 
@@ -71,7 +71,7 @@ jobs:
     env:
       TARGET_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       CACHIX_CACHE_NAME: ${{ vars.CACHIX_CACHE_NAME }}
-      CACHIX_PUSH: ${{ secrets.CACHIX_AUTH_TOKEN != '' }}
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -106,11 +106,11 @@ jobs:
             .#checks.aarch64-darwin.gateway
           )
 
-          if [ -n "${CACHIX_CACHE_NAME:-}" ] && [ "${CACHIX_PUSH:-false}" = "true" ]; then
+          if [ -n "${CACHIX_CACHE_NAME:-}" ] && [ -n "${CACHIX_AUTH_TOKEN:-}" ]; then
             echo "Building + pushing to Cachix cache: ${CACHIX_CACHE_NAME}"
             cachix watch-exec "${CACHIX_CACHE_NAME}" -- \
               nix build --accept-flake-config --print-build-logs "${targets[@]}"
           else
-            echo "Building without Cachix push (PR/fork or Cachix not configured)."
+            echo "Building without Cachix push (cache not configured)."
             nix build --accept-flake-config --print-build-logs "${targets[@]}"
           fi
