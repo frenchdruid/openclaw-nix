@@ -83,6 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = "${../scripts/gateway-postpatch.sh}";
   buildPhase = "${../scripts/gateway-build.sh}";
   installPhase = "${../scripts/gateway-install.sh}";
+  dontFixup = true;
   dontStrip = true;
   dontPatchShebangs = true;
 

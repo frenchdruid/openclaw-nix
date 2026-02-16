@@ -17,9 +17,27 @@ log_step() {
   printf '>> [timing] %s: %ss\n' "$name" "$((end - start))" >&2
 }
 
+check_no_broken_symlinks() {
+  root="$1"
+  if [ ! -d "$root" ]; then
+    return 0
+  fi
+
+  broken_tmp="$(mktemp)"
+  find "$root" -type l ! -exec test -e {} \; -print > "$broken_tmp"
+  if [ -s "$broken_tmp" ]; then
+    echo "dangling symlinks found under $root" >&2
+    cat "$broken_tmp" >&2
+    rm -f "$broken_tmp"
+    exit 1
+  fi
+  rm -f "$broken_tmp"
+}
+
 mkdir -p "$out/lib/openclaw" "$out/bin"
 
-log_step "copy build outputs" cp -r dist node_modules package.json "$out/lib/openclaw/"
+# Build dir is ephemeral in Nix; moving avoids an expensive deep copy of node_modules.
+log_step "move build outputs" mv dist node_modules package.json "$out/lib/openclaw/"
 if [ -d extensions ]; then
   log_step "copy extensions" cp -r extensions "$out/lib/openclaw/"
 fi
@@ -93,5 +111,7 @@ if [ -n "$hasown_src" ]; then
     done
   fi
 fi
+
+log_step "validate node_modules symlinks" check_no_broken_symlinks "$out/lib/openclaw/node_modules"
 
 bash -e -c '. "$STDENV_SETUP"; makeWrapper "$NODE_BIN" "$out/bin/openclaw" --add-flags "$out/lib/openclaw/dist/index.js" --set-default OPENCLAW_NIX_MODE "1"'
