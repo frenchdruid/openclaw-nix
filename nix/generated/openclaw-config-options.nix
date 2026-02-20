@@ -1,4 +1,4 @@
-# Generated from upstream OpenClaw schema at rev 618b36f07a3cc83daf189d5b704b33b1e89aff62. DO NOT EDIT.
+# Generated from upstream OpenClaw schema at rev 61f646c41fb43cd87ed48f9125b4718a30d38e84. DO NOT EDIT.
 # Generator: nix/scripts/generate-config-options.ts
 { lib }:
 let
@@ -2724,6 +2724,23 @@ in
         }; }));
           default = null;
         };
+        draftChunk = lib.mkOption {
+          type = t.nullOr (t.submodule { options = {
+          breakPreference = lib.mkOption {
+            type = t.nullOr (t.oneOf [ (t.enum [ "paragraph" ]) (t.enum [ "newline" ]) (t.enum [ "sentence" ]) ]);
+            default = null;
+          };
+          maxChars = lib.mkOption {
+            type = t.nullOr (t.int);
+            default = null;
+          };
+          minChars = lib.mkOption {
+            type = t.nullOr (t.int);
+            default = null;
+          };
+        }; });
+          default = null;
+        };
         enabled = lib.mkOption {
           type = t.nullOr (t.bool);
           default = null;
@@ -3000,6 +3017,10 @@ in
           type = t.nullOr (t.enum [ "online" "dnd" "idle" "invisible" ]);
           default = null;
         };
+        streamMode = lib.mkOption {
+          type = t.nullOr (t.enum [ "partial" "block" "off" ]);
+          default = null;
+        };
         textChunkLimit = lib.mkOption {
           type = t.nullOr (t.int);
           default = null;
@@ -3220,6 +3241,23 @@ in
           default = null;
         };
       }; }));
+        default = null;
+      };
+      draftChunk = lib.mkOption {
+        type = t.nullOr (t.submodule { options = {
+        breakPreference = lib.mkOption {
+          type = t.nullOr (t.oneOf [ (t.enum [ "paragraph" ]) (t.enum [ "newline" ]) (t.enum [ "sentence" ]) ]);
+          default = null;
+        };
+        maxChars = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+        minChars = lib.mkOption {
+          type = t.nullOr (t.int);
+          default = null;
+        };
+      }; });
         default = null;
       };
       enabled = lib.mkOption {
@@ -3496,6 +3534,10 @@ in
       };
       status = lib.mkOption {
         type = t.nullOr (t.enum [ "online" "dnd" "idle" "invisible" ]);
+        default = null;
+      };
+      streamMode = lib.mkOption {
+        type = t.nullOr (t.enum [ "partial" "block" "off" ]);
         default = null;
       };
       textChunkLimit = lib.mkOption {
