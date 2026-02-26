@@ -2,5 +2,3 @@
 NixOS/nixpkgs
 openclaw/nix-steipete-tools
 nix-community/home-manager
-nix-systems/default
-numtide/flake-utils

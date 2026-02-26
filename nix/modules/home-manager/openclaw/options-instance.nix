@@ -41,9 +41,9 @@
       type = lib.types.str;
       default =
         if name == "default" then
-          "/tmp/openclaw/openclaw-gateway.log"
+          "${config.stateDir}/logs/openclaw-gateway.log"
         else
-          "/tmp/openclaw/openclaw-gateway-${name}.log";
+          "${config.stateDir}/logs/openclaw-gateway-${name}.log";
       description = "Log path for this OpenClaw gateway instance.";
     };
 
